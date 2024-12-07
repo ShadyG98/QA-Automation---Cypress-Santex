@@ -1,0 +1,15 @@
+{    
+  "LoginStandard": {
+  "Username": "standard_user",
+  "Password": "secret_sauce"
+},
+"LoginProblem_user": {
+  "Username": "problem_user",
+  "Password": "secret_sauce"
+},
+  "PurchaseUser": {
+    "FirstName": "Brenda",
+    "LastName": "Escobar",
+    "postalCode": "5000"
+  }
+}
