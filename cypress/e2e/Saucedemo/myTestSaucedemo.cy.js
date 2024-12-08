@@ -1,45 +1,32 @@
-describe('Test saucedemo', {testIsolation: false}, () => {
+describe('Test saucedemo', { testIsolation: false }, () => {
 
   beforeEach('Visit the website', () => {
+    cy.visit('https://www.saucedemo.com');
+  });
 
-    cy.visit('https://www.saucedemo.com')
- }
-) 
+  const purchaseTest = (loginType, purchaseType) => {
+    // Login with the user
+    cy.LoginUser(loginType);
+
+    // Add the products to the cart
+    cy.AddProducts();
+
+    // Perform the checkout
+    cy.PurchaseUser1(purchaseType);
+
+    // Validate that the checkout has been completed
+    cy.CheckoutValidation();
+
+    // Perform the logout
+    cy.Logout();
+    cy.wait(1000); // Ensure logout completes
+  };
+
   it('Purchase with user 1', () => {
+    purchaseTest("LoginStandard", "PurchaseUser");
+  });
 
-    //Login with the user 'standard_user'
-    cy.LoginUser("LoginStandard")
-
-    //Add the products to the cart
-    cy.AddProducts()
-
-    //Perform the checkout
-    cy.PurchaseUser1("PurchaseUser")
-
-    //Validate that the checkout has been completed
-    cy.CheckoutValidation()
-
-    //Perform the logout
-    cy.Logout()
-    cy.wait(1000)
-  }
-  )
   it('Purchase with user 2', () => {
-
-        //Login with the user 'standard_user'
-        cy.LoginUser("LoginProblem_user")
-
-        //Add the products to the cart
-        cy.AddProducts()
-    
-        //Perform the checkout
-        cy.PurchaseUser1("PurchaseUser")
-    
-        //Validate that the checkout has been completed
-        cy.CheckoutValidation()
-    
-        //Perform the logout
-        cy.Logout()
-  }
-  )
-})
+    purchaseTest("LoginProblem_user", "PurchaseUser");
+  });
+});
